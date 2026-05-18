@@ -1,0 +1,7 @@
+{
+  "id": "MyProject",
+  "name": "Демо ВСС",
+  "models": [{ "id": "MainBuilding", "name": "Архитектура" }],
+  "viewerContent": { "modelsLoaded": ["MainBuilding"] },
+  "viewerUI": { "openExplorer": true }
+}

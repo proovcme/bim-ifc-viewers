@@ -1,0 +1,8 @@
+{
+  "id": "Infra-Landscaping",
+  "name": "Infra-Landscaping",
+  "saoEnabled": true,
+  "dtxEnabled": true,
+  "src": "./geometry.xkt",
+  "edges": true
+}

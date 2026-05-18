@@ -1,0 +1,9 @@
+{
+  "id": "MainBuilding",
+  "name": "Архитектура",
+  "saoEnabled": true,
+  "dtxEnabled": true,
+  "xktVersion": 12,
+  "src": "./geometry.xkt",
+  "edges": true
+}

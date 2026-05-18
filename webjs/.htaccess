@@ -1,0 +1,17 @@
+RewriteEngine On
+
+# Дописываем .js если его забыли в импорте
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.js -f
+RewriteRule ^(.*)$ $1.js [L]
+
+# Разрешаем типы файлов
+AddType application/wasm .wasm
+AddType application/octet-stream .ifc
+AddType application/javascript .js
+
+# Снимаем ограничения на доступ
+<FilesMatch "\.(ifc|wasm|js)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>

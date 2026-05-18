@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Xeokit BIM Viewer</title>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Оригинальные стили вьювера -->
+    <link rel="stylesheet" href="./dist/xeokit-bim-viewer.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- 🎨 НОВЫЙ ДИЗАЙН -->
+    <style>
+        :root {
+            --bg-body: #f4f7f9;
+            --bg-panel: #ffffff;
+            --bg-toolbar: #ffffff;
+            --border: #e2e8f0;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --accent-light: #dbeafe;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --radius: 10px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        body {
+            background: var(--bg-body);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-main);
+        }
+
+        /* --- TOOLBAR --- */
+        header {
+            background: var(--bg-toolbar) !important;
+            border-bottom: 1px solid var(--border) !important;
+            box-shadow: var(--shadow);
+            padding: 0 20px !important;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+        }
+
+        .toolbar-group { display: flex; align-items: center; gap: 8px; }
+
+        .custom-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: none;
+            text-decoration: none;
+        }
+        .custom-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+        .custom-btn i { font-size: 14px; }
+
+        .custom-btn.secondary {
+            background: #fff;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+        .custom-btn.secondary:hover { background: #f8fafc; border-color: var(--accent); color: var(--accent); }
+
+        .custom-btn.icon-only { padding: 8px 10px; }
+        .custom-btn .btn-label { display: inline; }
+        
+        .separator { width: 1px; height: 28px; background: var(--border); margin: 0 8px; }
+
+        #status { margin-left: 12px; font-size: 12px; color: var(--text-muted); font-weight: 500; background: #f1f5f9; padding: 4px 10px; border-radius: 20px; }
+
+        input[type="file"] { display: none; }
+
+        /* --- PANELS --- */
+        #myExplorer, #myInspector {
+            background: var(--bg-panel) !important;
+            border-right: 1px solid var(--border) !important;
+            box-shadow: var(--shadow);
+        }
+        #myInspector { border-left: 1px solid var(--border) !important; border-right: none !important; }
+
+        /* --- VIEWPORT --- */
+        #myViewer {
+            background: #0f172a !important;
+            border-radius: 0 !important;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- SECRET TRIGGER --- */
+        #secret-trigger {
+            position: absolute; bottom: 0; right: 0;
+            width: 30px; height: 30px;
+            background: transparent; cursor: pointer; z-index: 50;
+            opacity: 0.05; transition: 0.3s;
+            border-top-left-radius: 100%;
+        }
+        #secret-trigger:hover { opacity: 0.3; background: var(--accent); }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: none; justify-content: center; align-items: center; z-index: 200;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: #fff; width: 650px; max-width: 90%;
+            border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            padding: 32px; max-height: 85vh; overflow-y: auto;
+        }
+        .modal h2 { margin-bottom: 16px; color: #0f172a; font-size: 20px; display:flex; align-items:center; gap:10px; }
+        .modal h4 { margin: 18px 0 8px; color: var(--accent); font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .modal p { margin-bottom: 12px; line-height: 1.6; color: var(--text-muted); font-size: 14px; }
+        pre {
+            background: #1e293b; padding: 16px; border-radius: 10px;
+            color: #e2e8f0; font-family: "SF Mono", "Menlo", "Consolas", monospace; font-size: 13px;
+            border: 1px solid #334155; overflow-x: auto;
+        }
+        .modal .btn-close { margin-top: 24px; width: 100%; justify-content: center; background: var(--text-main); color: #fff; }
+
+        /* Overrides for xeokit internal elements if needed */
+        .xeokit-btn { border-radius: var(--radius) !important; transition: 0.2s; }
+        .xeokit-btn:hover { background: var(--accent-light) !important; }
+    </style>
+</head>
+
+<body>
+    <!-- Чекбоксы для панелей (оригинальная логика) -->
+    <input type="checkbox" id="explorer_toggle" />
+    <label for="explorer_toggle" class="xeokit-i18n explorer_toggle_label xeokit-btn fas fa-2x fa-sitemap"
+        data-xeokit-i18ntip="toolbar.toggleExplorer" data-tippy-content="Toggle explorer"></label>
+    
+    <input type="checkbox" id="inspector_toggle" />
+    <label id="inspector_toggle_label" for="inspector_toggle"
+        class="xeokit-i18n inspector_toggle_label xeokit-btn fas fa-info-circle fa-2x"
+        data-xeokit-i18ntip="toolbar.toggleProperties" data-tippy-content="Toggle properties"></label>
+
+    <div id="myExplorer"></div>
+    
+    <!-- 🔧 ОБНОВЛЕННЫЙ TOOLBAR С ПОДПИСЯМИ -->
+    <div id="myToolbar" style="display:flex; align-items:center; justify-content:space-between; height:100%;">
+        <div class="toolbar-group">
+            <div style="font-weight:700; color:var(--accent); display:flex; align-items:center; gap:6px; margin-right:4px;">
+                <i class="fas fa-cube"></i> <span style="font-size:14px;">BIM Viewer</span>
+            </div>
+            
+            <label class="custom-btn" for="file-input">
+                <i class="fas fa-folder-open"></i> Загрузить XKT
+                <input type="file" id="file-input" accept=".xkt,.xkt.gz">
+            </label>
+
+            <div class="separator"></div>
+
+            <button class="custom-btn secondary icon-only" id="btn-fit" title="Вписать модель в экран (F)">
+                <i class="fas fa-expand"></i> <span class="btn-label">Вписать</span>
+            </button>
+            <button class="custom-btn secondary icon-only" id="btn-xray" title="Режим рентгена (X)">
+                <i class="fas fa-eye"></i> <span class="btn-label">Рентген</span>
+            </button>
+            <button class="custom-btn secondary icon-only" id="btn-measure" title="Инструмент замеров (M)">
+                <i class="fas fa-ruler-combined"></i> <span class="btn-label">Замер</span>
+            </button>
+            <button class="custom-btn secondary icon-only" id="btn-reset" title="Сбросить вид и выделение (Esc)">
+                <i class="fas fa-undo"></i> <span class="btn-label">Сброс</span>
+            </button>
+        </div>
+
+        <div class="toolbar-group">
+            <span id="status">Готов</span>
+            <button class="custom-btn secondary" id="btn-help" title="Инструкция по конвертации">
+                <i class="fas fa-question-circle"></i> Помощь
+            </button>
+        </div>
+    </div>
+
+    <div id="myInspector"></div>
+
+    <div id="myViewer">
+        <canvas id="myCanvas"></canvas>
+        <canvas id="myNavCubeCanvas"></canvas>
+        <!-- 🔒 СЕКРЕТНАЯ ЗОНА -->
+        <div id="secret-trigger" title="Загрузить серверную модель: Option(⌥)+L"></div>
+    </div>
+
+    <!-- 📖 МОДАЛЬНОЕ ОКНО ИНСТРУКЦИИ -->
+    <div class="modal-overlay" id="modal-help">
+        <div class="modal">
+            <h2><i class="fas fa-tools" style="color:var(--accent)"></i> Конвертация IFC → XKT</h2>
+            <p>Вьювер работает только с форматом <b>.xkt</b>. Конвертация делается один раз на компьютере перед загрузкой на сайт.</p>
+            
+            <h4>1. Подготовьте окружение</h4>
+            <pre>nvm install 18 && nvm use 18<br>git clone https://github.com/xeokit/xeokit-convert.git<br>cd xeokit-convert && npm install && cd ..</pre>
+            
+            <h4>2. Запустите конвертацию</h4>
+            <pre>NODE_OPTIONS="--max-old-space-size=8192" \<br>node ./xeokit-convert/convert2xkt.js \<br>  -s "model.ifc" \<br>  -o "model.xkt" -l</pre>
+            
+            <p>📝 Флаг <code>-l</code> покажет прогресс. Для файлов >100 МБ обязательно используйте <code>NODE_OPTIONS</code>.</p>
+
+            <button class="custom-btn btn-close" onclick="document.getElementById('modal-help').classList.remove('active')">Понятно, закрыть</button>
+        </div>
+    </div>
+
+</body>
+
+<!-- Tooltips libraries -->
+<script src="https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
+
+<script type="module">
+
+    import { Server, BIMViewer, LocaleService } from "../dist/xeokit-bim-viewer.es.js";
+    import { messages as localeMessages } from "../dist/messages.js";
+
+    window.onload = function () {
+
+        const requestParams = getRequestParams();
+        const locale = requestParams.locale || "en";
+        const projectId = requestParams.projectId;
+
+        if (!projectId) {
+            return;
+        }
+
+        const openExplorer = requestParams.openExplorer;
+        setExplorerOpen(openExplorer === "true");
+
+        const enableEditModels = (requestParams.enableEditModels === "true");
+
+        const server = new Server({
+            dataDir: requestParams.dataDir || "./data"
+        });
+
+        const bimViewer = new BIMViewer(server, {
+            localeService: new LocaleService({
+                messages: localeMessages,
+                locale: locale
+            }),
+            enableMeasurements: true,
+            canvasElement: document.getElementById("myCanvas"), // WebGL canvas
+            keyboardEventsElement: document, // Optional, defaults to document
+            explorerElement: document.getElementById("myExplorer"), // Left panel
+            toolbarElement: document.getElementById("myToolbar"), // Toolbar
+            inspectorElement: document.getElementById("myInspector"), // Right panel
+            navCubeCanvasElement: document.getElementById("myNavCubeCanvas"),
+            busyModelBackdropElement: document.getElementById("myViewer"),
+            enableEditModels: enableEditModels
+        });
+
+        // ==========================================
+        // 🔧 ДОБАВЛЕННАЯ ЛОГИКА (НЕ ТРОГАЕТ ОСНОВНУЮ)
+        // ==========================================
+        
+        const statusEl = document.getElementById("status");
+
+        // 1. Загрузка локального файла XKT
+        document.getElementById("file-input").addEventListener("change", async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            statusEl.textContent = `Загрузка: ${file.name}...`;
+            try {
+                const buffer = await file.arrayBuffer();
+                // Используем внутренний Viewer для загрузки буфера
+                const viewer = bimViewer.viewer;
+                const xktLoader = viewer.plugins["xeokit.XKTLoaderPlugin"];
+                if (!xktLoader) throw new Error("XKTLoaderPlugin not found");
+                
+                // Удаляем предыдущую модель если есть (опционально, можно добавить новую)
+                if (viewer.scene.models[file.name]) {
+                    viewer.scene.models[file.name].destroy();
+                }
+
+                xktLoader.load({
+                    id: file.name.replace(/\.xkt(\.gz)?$/, ""),
+                    xkt: buffer,
+                    edges: true
+                });
+                statusEl.textContent = `✓ ${file.name}`;
+            } catch (err) {
+                statusEl.textContent = `❌ Ошибка: ${err.message}`;
+                console.error(err);
+            }
+        });
+
+        // 2. Кнопки инструментов (Вписать, Рентген, Замер, Сброс)
+        document.getElementById("btn-fit").onclick = () => {
+            const scene = bimViewer.viewer.scene;
+            bimViewer.viewer.cameraFlight.flyTo(scene);
+        };
+
+        let xrayActive = false;
+        document.getElementById("btn-xray").onclick = function() {
+            xrayActive = !xrayActive;
+            this.style.color = xrayActive ? "var(--accent)" : "inherit";
+            this.style.background = xrayActive ? "var(--accent-light)" : "transparent";
+            const scene = bimViewer.viewer.scene;
+            scene.setObjectsXRayed(scene.objectIds, xrayActive);
+        };
+
+        let measureActive = false;
+        document.getElementById("btn-measure").onclick = function() {
+            measureActive = !measureActive;
+            this.style.color = measureActive ? "var(--accent)" : "inherit";
+            this.style.background = measureActive ? "var(--accent-light)" : "transparent";
+            const scene = bimViewer.viewer.scene;
+            const measureTool = scene.plugins["xeokit.DistanceMeasurementsPlugin"];
+            if (measureTool) {
+                measureActive ? measureTool.activate() : measureTool.deactivate();
+            }
+        };
+
+        document.getElementById("btn-reset").onclick = () => {
+            xrayActive = false; measureActive = false;
+            document.getElementById("btn-xray").style.color = "inherit";
+            document.getElementById("btn-xray").style.background = "transparent";
+            document.getElementById("btn-measure").style.color = "inherit";
+            document.getElementById("btn-measure").style.background = "transparent";
+            
+            const scene = bimViewer.viewer.scene;
+            scene.setObjectsXRayed(scene.objectIds, false);
+            scene.setObjectsSelected(scene.selectedObjectIds, false);
+            
+            const measureTool = scene.plugins["xeokit.DistanceMeasurementsPlugin"];
+            if (measureTool) measureTool.clear();
+            
+            bimViewer.viewer.cameraFlight.flyTo(scene);
+            statusEl.textContent = "Сброс выполнен";
+        };
+
+        // 3. Секретная загрузка серверной модели (Option+L)
+        async function loadServerModel() {
+            statusEl.textContent = "⏳ Загрузка с сервера...";
+            try {
+                const res = await fetch("./data/projects/MyProject/models/MainBuilding/geometry.xkt");
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const buffer = await res.arrayBuffer();
+                
+                const viewer = bimViewer.viewer;
+                const xktLoader = viewer.plugins["xeokit.XKTLoaderPlugin"];
+                if (!xktLoader) throw new Error("XKTLoaderPlugin not found");
+                
+                if (viewer.scene.models["ServerModel"]) viewer.scene.models["ServerModel"].destroy();
+                
+                xktLoader.load({ id: "ServerModel", xkt: buffer, edges: true });
+                statusEl.textContent = "✓ Серверная модель загружена";
+            } catch (e) {
+                statusEl.textContent = `❌ ${e.message}`;
+            }
+        }
+
+        document.getElementById("secret-trigger").addEventListener("click", loadServerModel);
+        document.addEventListener("keydown", (e) => {
+            if (e.altKey && e.key === "l") loadServerModel();
+            if (e.key === "f") document.getElementById("btn-fit").click();
+            if (e.key.toLowerCase() === "x") document.getElementById("btn-xray").click();
+            if (e.key.toLowerCase() === "m") document.getElementById("btn-measure").click();
+            if (e.key === "Escape") document.getElementById("btn-reset").click();
+        });
+
+        document.getElementById("btn-help").onclick = () => document.getElementById("modal-help").classList.add("active");
+
+        // ==========================================
+        // КОНЕЦ ДОБАВЛЕННОЙ ЛОГИКИ
+        // ==========================================
+
+        bimViewer.localeService.on("updated", () => {
+            const localizedElements = document.querySelectorAll('.xeokit-i18n');
+            localizedElements.forEach((localizedElement) => {
+                if (localizedElement.dataset.xeokitI18n) {
+                    localizedElement.innerText = bimViewer.localeService.translate(localizedElement.dataset.xeokitI18n);
+                }
+                if (localizedElement.dataset.xeokitI18ntip) {
+                    const translation = bimViewer.localeService.translate(localizedElement.dataset.xeokitI18ntip);
+                    if (translation) {
+                        localizedElement.dataset.tippyContent = bimViewer.localeService.translate(localizedElement.dataset.xeokitI18ntip);
+                    }
+                }
+                if (localizedElement.dataset.tippyContent) {
+                    if (localizedElement._tippy) {
+                        localizedElement._tippy.setContent(localizedElement.dataset.tippyContent);
+                    } else {
+                        tippy(localizedElement, {
+                            appendTo: "parent",
+                            zIndex: 1000000,
+                            allowHTML: true
+                        });
+                    }
+                }
+            });
+        });
+
+        bimViewer.setConfigs({
+            "showSpaces": false, // Default
+            "selectedGlowThrough": true,
+            "highlightGlowThrough": true,
+            "dtxEnabled": true // Enable data texture scene representation for models - may be slow on low-spec GPUs
+        });
+
+        bimViewer.on("openExplorer", () => {
+            setExplorerOpen(true);
+        });
+
+        bimViewer.on("openInspector", () => {
+            setInspectorOpen(true);
+        });
+
+        bimViewer.on("addModel", (event) => { // "Add" selected in Models tab's context menu
+            console.log("addModel: " + JSON.stringify(event, null, "\t"));
+        });
+
+        bimViewer.on("editModel", (event) => { // "Edit" selected in Models tab's context menu
+            console.log("editModel: " + JSON.stringify(event, null, "\t"));
+        });
+
+        bimViewer.on("deleteModel", (event) => { // "Delete" selected in Models tab's context menu
+            console.log("deleteModel: " + JSON.stringify(event, null, "\t"));
+        });
+
+        const viewerConfigs = requestParams.configs;
+        if (viewerConfigs) {
+            const configNameVals = viewerConfigs.split(",");
+            for (let i = 0, len = configNameVals.length; i < len; i++) {
+                const configNameValStr = configNameVals[i];
+                const configNameVal = configNameValStr.split(":");
+                const configName = configNameVal[0];
+                const configVal = configNameVal[1];
+                bimViewer.setConfig(configName, configVal);
+            }
+        }
+
+        bimViewer.loadProject(projectId, () => {
+            const modelId = requestParams.modelId;
+            if (modelId) {
+                bimViewer.loadModel(modelId);
+            }
+            const tab = requestParams.tab;
+            if (tab) {
+                bimViewer.openTab(tab);
+            }
+            watchHashParams();
+        },
+            (errorMsg) => {
+                console.error(errorMsg);
+            });
+
+        function watchHashParams() {
+            let lastHash = "";
+            window.setInterval(() => {
+                const currentHash = window.location.hash;
+                if (currentHash !== lastHash) {
+                    parseHashParams();
+                    lastHash = currentHash;
+                }
+            }, 400);
+        }
+
+        function parseHashParams() {
+            const params = getHashParams();
+            const actionsStr = params.actions;
+            if (!actionsStr) {
+                return;
+            }
+            const actions = actionsStr.split(",");
+            if (actions.length === 0) {
+                return;
+            }
+            for (let i = 0, len = actions.length; i < len; i++) {
+                const action = actions[i];
+                switch (action) {
+                    case "focusObject":
+                        const objectId = params.objectId;
+                        if (!objectId) {
+                            console.error("Param expected for `focusObject` action: 'objectId'");
+                            break;
+                        }
+                        bimViewer.setAllObjectsSelected(false);
+                        bimViewer.setObjectsSelected([objectId], true);
+                        bimViewer.flyToObject(objectId, () => {
+                        });
+                        break;
+                    case "focusObjects":
+                        const objectIds = params.objectIds;
+                        if (!objectIds) {
+                            console.error("Param expected for `focusObjects` action: 'objectIds'");
+                            break;
+                        }
+                        const objectIdArray = objectIds.split(",");
+                        bimViewer.setAllObjectsSelected(false);
+                        bimViewer.setObjectsSelected(objectIdArray, true);
+                        bimViewer.viewFitObjects(objectIdArray, () => {
+                        });
+                        break;
+                    case "clearFocusObjects":
+                        bimViewer.setAllObjectsSelected(false);
+                        bimViewer.viewFitAll();
+                        break;
+                    case "openTab":
+                        const tabId = params.tabId;
+                        if (!tabId) {
+                            console.error("Param expected for `openTab` action: 'tabId'");
+                            break;
+                        }
+                        bimViewer.openTab(tabId);
+                        break;
+                    default:
+                        console.error("Action not supported: '" + action + "'");
+                        break;
+                }
+            }
+        }
+
+        function setExplorerOpen(explorerOpen) {
+            const toggle = document.getElementById("explorer_toggle");
+            if (toggle) {
+                toggle.checked = explorerOpen;
+            }
+        }
+
+        function setInspectorOpen(inspectorOpen) {
+            const toggle = document.getElementById("inspector_toggle");
+            if (toggle) {
+                toggle.checked = inspectorOpen;
+            }
+        }
+
+        function getRequestParams() {
+            const vars = {};
+            window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
+                vars[key] = value;
+            });
+            return vars;
+        }
+
+        function getHashParams() {
+            const hashParams = {};
+            let e;
+            const a = /\+/g;
+            const r = /([^&;=]+)=?([^&;]*)/g;
+            const d = function (s) {
+                return decodeURIComponent(s.replace(a, " "));
+            };
+            const q = window.location.hash.substring(1);
+            while (e = r.exec(q)) {
+                hashParams[d(e[1])] = d(e[2]);
+            }
+            return hashParams;
+        }
+
+        window.bimViewer = bimViewer;
+    }
+
+</script>
+
+</html>

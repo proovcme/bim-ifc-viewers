@@ -1,0 +1,85 @@
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --c-main:  #2a629a;
+  --c-rag:   #c29922;
+  --c-toc:   #5a9c42;
+  --c-ai:    #b02a2a;
+  --c-bim:   #178a99;
+  --c-fun:   #4a2180;
+  --c-tg:    #24a1de;
+
+  /* Цвета подсайтов chernetchenko.pro — WAF = c-ai */
+  --c-waf:   var(--c-ai);
+
+  --bg-main:      #181b1f;
+  --bg-secondary: #22262c;
+  --bg-tertiary:  #14171a;
+  --text-main:    #dde1e7;
+  --text-muted:   #8a9099;
+  --text-dim:     #8b949e;
+  --card-bg:      #f5f6f8;
+  --card-text:    #111418;
+  --border:       #2e333b;
+  --border-sub:   #232830;
+
+  /* Courier New — стабилен на маке, работает без сети */
+  --font-code: 'Courier New', Courier, monospace;
+  --font-ui:   -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue',
+               Arial, sans-serif;
+
+  --card-scale:      1.1;
+  --text-scale:      1.5;
+  --text-scale-card: 2.2;
+  --base-card-size:  160px;
+  --base-font-size:  13px;
+
+  --r-sm:  6px;
+  --r-md:  10px;
+  --r-lg:  16px;
+  --r-xl:  24px;
+
+  --sh-sm: 0 2px 8px rgba(0,0,0,.28);
+  --sh-md: 0 6px 20px rgba(0,0,0,.35);
+  --sh-lg: 0 16px 48px rgba(0,0,0,.45);
+
+  --ease: 200ms ease;
+}
+
+/* ============================================================
+    MANAGEMENT MODE
+    ============================================================ */
+.management-mode {
+  --font-code: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --r-sm:  12px;
+  --r-md:  16px;
+  --r-lg:  20px;
+  --r-xl:  28px;
+  --sh-sm: 0 4px 12px rgba(0,0,0,.12);
+  --sh-md: 0 8px 24px rgba(0,0,0,.15);
+  --sh-lg: 0 20px 60px rgba(0,0,0,.18);
+}
+
+/* ============================================================
+    СВЕТЛАЯ ТЕМА
+    ============================================================ */
+.theme-light {
+  --bg-main:      #f0ede8;
+  --bg-secondary: #e8e4de;
+  --bg-tertiary:  #ddd9d3;
+  --text-main:    #1a1d21;
+  --text-muted:   #5a5f68;
+  --text-dim:     #9a9fa8;
+  --border:       #ccc8c2;
+  --border-sub:   #d8d4ce;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+.theme-light .section-title { color: #111; }
+.theme-light .section-title::after { background: linear-gradient(to right, var(--border), transparent); }
+.theme-light .sub-title { color: #aaa; }
+.theme-light .page-title { color: var(--c-main); border-color: var(--border); }
+.theme-light ::-webkit-scrollbar-track { background: var(--bg-main); }
+.theme-light ::-webkit-scrollbar-thumb { background: var(--border); }

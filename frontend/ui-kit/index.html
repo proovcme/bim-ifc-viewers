@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OVC.ME — Interactive Brandbook & UI Kit</title>
+<link rel="stylesheet" href="css/01_tokens.css">
+<link rel="stylesheet" href="css/02_base.css">
+<link rel="stylesheet" href="css/03_components.css">
+</head>
+<body>
+
+<!-- ============================================================
+     SITE HEADER
+     ============================================================ -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="#" class="site-header__logo">ovc.<span>me</span><span class="cli-only">>_</span></a>
+
+    <nav class="site-header__nav">
+      <a href="#" class="site-header__link">
+        <span class="site-header__link-cmd" style="color:var(--c-main)"><span class="cli-only">~/</span></span>
+        <span class="site-header__link-label">Главная</span>
+      </a>
+      <a href="#" class="site-header__link">
+        <span class="site-header__link-cmd" style="color:var(--c-rag)"><span class="cli-only">cd </span>rag</span>
+        <span class="site-header__link-label">ИИ & Данные</span>
+      </a>
+      <a href="#" class="site-header__link">
+        <span class="site-header__link-cmd" style="color:var(--c-toc)"><span class="cli-only">cd </span>toc</span>
+        <span class="site-header__link-label">Процессы</span>
+      </a>
+      <a href="#" class="site-header__link">
+        <span class="site-header__link-cmd" style="color:var(--c-bim)"><span class="cli-only">cd </span>bim</span>
+        <span class="site-header__link-label">BIM</span>
+      </a>
+    </nav>
+
+    <div class="site-header__right">
+      <button class="mode-toggle" id="mode-toggle" title="Переключить режим интерфейса" aria-label="Переключить режим интерфейса">
+        <span class="cmd" id="mode-toggle-cmd"><span class="cli-only">role --dev</span><span class="mgmt-only">role --mgr</span></span>
+        <span class="lbl" id="mode-toggle-lbl">Роль: Разработчик</span>
+      </button>
+      <button class="theme-toggle" id="theme-toggle" title="Переключить тему" aria-label="Переключить тему">
+        <span class="cmd" id="theme-toggle-cmd"><span class="cli-only">theme --light</span><span class="mgmt-only">Light</span></span>
+        <span class="lbl" id="theme-toggle-lbl">Светлая тема</span>
+      </button>
+      <a href="#" class="site-header__tg">
+        <span class="cmd"><span class="cli-only">ping @</span>tg</span>
+        <span class="lbl">Telegram</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- SIDE NAV -->
+<nav class="side-nav" aria-label="Разделы">
+  <a href="#s1" data-label="Цвета"></a>
+  <a href="#s2" data-label="Хедер/Футер"></a>
+  <a href="#s3" data-label="Карточки"></a>
+  <a href="#s3b" data-label="Плитки статей"></a>
+  <a href="#s4" data-label="Кнопки"></a>
+  <a href="#s5" data-label="Контент"></a>
+  <a href="#s6" data-label="Иконки"></a>
+  <a href="#s7" data-label="Мобилка"></a>
+  <a href="#s8" data-label="Формы"></a>
+  <a href="#s9" data-label="Ошибки"></a>
+  <a href="#s10" data-label="Advanced"></a>
+  <a href="#s11" data-label="OVC Trigger"></a>
+</nav>
+
+<!-- ============================================================
+     MAIN
+     ============================================================ -->
+<main>
+
+  <h1 class="page-title">ovc.me <span class="cli-only">>_</span> Interactive Brandbook</h1>
+
+  <!-- BRANDING HEADER -->
+  <div class="branding-header">
+    <div class="terminal-dots"><span></span><span></span><span></span></div>
+    <span id="ovc-trigger" class="ovc-trigger" tabindex="0" role="button" title="Кликни для смены">ovc.me</span>:
+    <span id="ovc-expansion" class="ovc-expansion">Оптимизация Векторных Цепочек : Машинная Экспертиза</span>
+  </div>
+
+  <!-- CHANGELOG -->
+  <div class="content-block block-info" style="margin-bottom:56px">
+    <div class="content-block-header"><span class="cli-only">[INFO]</span> UI Kit v3.0 — Что изменилось</div>
+    <ul class="changelog-list">
+      <li class="changelog-item"><span class="changelog-tag tag-fix">FIX</span><span class="changelog-text"><strong>Системный monospace стек</strong> — работает без интернета, открывается мгновенно с диска</span></li>
+      <li class="changelog-item"><span class="changelog-tag tag-new">NEW</span><span class="changelog-text"><strong>Site Header</strong> — sticky навигация под цвет сайта с backdrop blur</span></li>
+      <li class="changelog-item"><span class="changelog-tag tag-new">NEW</span><span class="changelog-text"><strong>Site Footer</strong> — колонки ссылок, статус-индикатор, терминальный стиль</span></li>
+      <li class="changelog-item"><span class="changelog-tag tag-ui">UI</span><span class="changelog-text"><strong>Side-nav</strong> — точки с тултипами, scroll-spy автоматически подсвечивает раздел</span></li>
+      <li class="changelog-item"><span class="changelog-tag tag-ui">UI</span><span class="changelog-text"><strong>Status-badge</strong> в таблице, <strong>color-mix()</strong> для callouts, <strong>Copy button</strong> с реальным clipboard</span></li>
+    </ul>
+  </div>
+
+  <!-- ======================== S1: ЦВЕТА -->
+  <h2 class="section-title" id="s1"><span class="section-num">01</span>Цветовая палитра (Design Tokens)</h2>
+  <p class="desc">Семантические токены — каждый цвет привязан к разделу или продукту.</p>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-box" style="background:var(--c-main)"></div><div class="color-info"><div class="color-name">Main</div><div class="color-hex">#2a629a</div></div></div>
+    <div class="color-swatch"><div class="color-box" style="background:var(--c-rag)"></div><div class="color-info"><div class="color-name">RAG</div><div class="color-hex">#c29922</div></div></div>
+    <div class="color-swatch"><div class="color-box" style="background:var(--c-toc)"></div><div class="color-info"><div class="color-name">TOC</div><div class="color-hex">#5a9c42</div></div></div>
+    <div class="color-swatch"><div class="color-box" style="background:var(--c-ai)"></div><div class="color-info"><div class="color-name">AI</div><div class="color-hex">#b02a2a</div></div></div>
+    <div class="color-swatch"><div class="color-box" style="background:var(--c-bim)"></div><div class="color-info"><div class="color-name">BIM</div><div class="color-hex">#178a99</div></div></div>
+    <div class="color-swatch"><div class="color-box" style="background:var(--c-fun)"></div><div class="color-info"><div class="color-name">FUN</div><div class="color-hex">#4a2180</div></div></div>
+    <div class="color-swatch"><div class="color-box" style="background:var(--c-tg)"></div><div class="color-info"><div class="color-name">Telegram</div><div class="color-hex">#24a1de</div></div></div>
+  </div>
+
+  <!-- ======================== S2: КОМПОНЕНТЫ -->
+  <h2 class="section-title" id="s2"><span class="section-num">02</span>Хедер и Футер — две темы</h2>
+  <p class="desc">Один паттерн — две темы. Тёмная для основного сайта, светлая для лендингов и подсайтов.</p>
+
+  <!-- ====== ТЁМНАЯ ТЕМА ====== -->
+  <div class="sub-title">Dark theme — тёмная</div>
+  <div class="theme-demo-block">
+    <div class="theme-demo-header">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <span>theme: dark · bg: #181b1f</span>
+    </div>
+    <!-- Хедер тёмный -->
+    <div style="background:#22262c;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid #2e333b">
+      <a href="#" style="font-family:var(--font-code);font-size:1rem;font-weight:bold;color:#dde1e7;text-decoration:none;white-space:nowrap;flex-shrink:0">
+        ovc.<span style="color:var(--c-main)">me</span><span class="cli-only">>_</span>
+      </a>
+      <nav style="display:flex;align-items:center;gap:4px">
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1px solid #2e333b">
+          <span style="font-family:var(--font-code);color:var(--c-main);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">~/</span></span>
+          <span style="font-size:.58rem;color:#8b949e;text-transform:uppercase;letter-spacing:.07em">Главная</span>
+        </a>
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1px solid #2e333b">
+          <span style="font-family:var(--font-code);color:var(--c-rag);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">cd </span>rag</span>
+          <span style="font-size:.58rem;color:#8b949e;text-transform:uppercase;letter-spacing:.07em">ИИ & Данные</span>
+        </a>
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1px solid #2e333b">
+          <span style="font-family:var(--font-code);color:var(--c-toc);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">cd </span>toc</span>
+          <span style="font-size:.58rem;color:#8b949e;text-transform:uppercase;letter-spacing:.07em">Процессы</span>
+        </a>
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1px solid #2e333b">
+          <span style="font-family:var(--font-code);color:var(--c-bim);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">cd </span>bim</span>
+          <span style="font-size:.58rem;color:#8b949e;text-transform:uppercase;letter-spacing:.07em">BIM</span>
+        </a>
+      </nav>
+      <div style="display:flex;gap:6px">
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1px solid rgba(36,161,222,.35);background:rgba(36,161,222,.07)">
+          <span style="font-family:var(--font-code);color:var(--c-tg);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">ping @</span>channel</span>
+          <span style="font-size:.58rem;color:#8b949e;text-transform:uppercase;letter-spacing:.07em">Telegram</span>
+        </a>
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1px solid #2e333b">
+          <span style="font-family:var(--font-code);color:var(--c-main);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">mail </span>-s</span>
+          <span style="font-size:.58rem;color:#8b949e;text-transform:uppercase;letter-spacing:.07em">Почта</span>
+        </a>
+      </div>
+    </div>
+    <!-- Плейсхолдер контента -->
+    <div style="background:#181b1f;padding:20px 32px;text-align:center;font-family:var(--font-code);font-size:.78rem;color:#2e333b">[ ... контент страницы ... ]</div>
+    <!-- Футер тёмный -->
+    <div style="background:#22262c;padding:36px 32px 0;border-top:1px solid #2e333b">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px;margin-bottom:32px">
+        <div style="font-family:var(--font-code);font-size:.95rem;font-weight:bold;color:#8a9099"><span class="cli-only">root@</span><span style="color:var(--c-main)">ovc.me</span><span class="cli-only"> ~ #</span></div>
+        <div style="display:flex;gap:48px;flex-wrap:wrap">
+          <div>
+            <div style="font-family:var(--font-code);font-size:.66rem;color:#8b949e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;font-weight:bold">Разделы</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:var(--c-rag);text-decoration:none"><span class="cli-only">> cd </span>rag</a><div style="font-size:.68rem;color:#8b949e;padding-left:14px;margin-top:2px">ИИ и данные — RAG, чанкинг</div></div>
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:var(--c-toc);text-decoration:none"><span class="cli-only">> cd </span>toc</a><div style="font-size:.68rem;color:#8b949e;padding-left:14px;margin-top:2px">Процессы — ТОС, DBR</div></div>
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:var(--c-bim);text-decoration:none"><span class="cli-only">> cd </span>bim</a><div style="font-size:.68rem;color:#8b949e;padding-left:14px;margin-top:2px">BIM и цифровое строительство</div></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-code);font-size:.66rem;color:#8b949e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;font-weight:bold">О проекте</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:#8a9099;text-decoration:none"><span class="cli-only">> cd /</span>about</a><div style="font-size:.68rem;color:#8b949e;padding-left:14px;margin-top:2px">Что такое ovc.me</div></div>
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:#8a9099;text-decoration:none"><span class="cli-only">> cd /</span>contacts</a><div style="font-size:.68rem;color:#8b949e;padding-left:14px;margin-top:2px">Написать напрямую</div></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-code);font-size:.66rem;color:#8b949e;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;font-weight:bold">Соцсети</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:var(--c-tg);text-decoration:none"><span class="cli-only">> ./</span>telegram</a><div style="font-size:.68rem;color:#8b949e;padding-left:14px;margin-top:2px">Следить за апдейтами</div></div>
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:#8a9099;text-decoration:none"><span class="cli-only">> </span>mail -s</a><div style="font-size:.68rem;color:#8b949e;padding-left:14px;margin-top:2px">Написать на почту</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:1px dashed #2e333b;padding:16px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <span style="font-family:var(--font-code);font-size:.76rem;color:#8b949e">[Process completed] All systems operational.</span>
+        <span style="font-family:var(--font-code);font-size:.76rem;color:#8b949e">2026 © OVC.ME</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== СВЕТЛАЯ ТЕМА ====== -->
+  <div class="sub-title">Light theme — светлая</div>
+  <div class="theme-demo-block">
+    <div class="theme-demo-header" style="background:#e8e4de;border-color:#ccc8c2;color:#9a9fa8">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <span>theme: light · bg: #f0ede8</span>
+    </div>
+    <!-- Хедер светлый -->
+    <div style="background:#ffffff;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid #e2ddd8">
+      <a href="#" style="font-family:var(--font-code);font-size:1rem;font-weight:bold;color:#1a1d21;text-decoration:none;white-space:nowrap;flex-shrink:0">
+        ovc.<span style="color:var(--c-main)">me</span><span class="cli-only">>_</span>
+      </a>
+      <nav style="display:flex;align-items:center;gap:4px">
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1.5px solid #e2ddd8">
+          <span style="font-family:var(--font-code);color:var(--c-main);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">~/</span></span>
+          <span style="font-size:.58rem;color:#555;text-transform:uppercase;letter-spacing:.07em">Главная</span>
+        </a>
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1.5px solid #e2ddd8">
+          <span style="font-family:var(--font-code);color:var(--c-rag);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">cd </span>rag</span>
+          <span style="font-size:.58rem;color:#555;text-transform:uppercase;letter-spacing:.07em">ИИ & Данные</span>
+        </a>
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1.5px solid #e2ddd8">
+          <span style="font-family:var(--font-code);color:var(--c-toc);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">cd </span>toc</span>
+          <span style="font-size:.58rem;color:#555;text-transform:uppercase;letter-spacing:.07em">Процессы</span>
+        </a>
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1.5px solid #e2ddd8">
+          <span style="font-family:var(--font-code);color:var(--c-bim);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">cd </span>bim</span>
+          <span style="font-size:.58rem;color:#555;text-transform:uppercase;letter-spacing:.07em">BIM</span>
+        </a>
+      </nav>
+      <div style="display:flex;gap:6px">
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1.5px solid rgba(36,161,222,.4);background:rgba(36,161,222,.06)">
+          <span style="font-family:var(--font-code);color:var(--c-tg);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">ping @</span>channel</span>
+          <span style="font-size:.58rem;color:#555;text-transform:uppercase;letter-spacing:.07em">Telegram</span>
+        </a>
+        <a href="#" style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;padding:7px 14px;border-radius:6px;border:1.5px solid #e2ddd8">
+          <span style="font-family:var(--font-code);color:var(--c-main);font-weight:bold;font-size:.88rem;line-height:1"><span class="cli-only">mail </span>-s</span>
+          <span style="font-size:.58rem;color:#555;text-transform:uppercase;letter-spacing:.07em">Почта</span>
+        </a>
+      </div>
+    </div>
+    <!-- Плейсхолдер контента -->
+    <div style="background:#f0ede8;padding:20px 32px;text-align:center;font-family:var(--font-code);font-size:.78rem;color:#ccc8c2">[ ... контент страницы ... ]</div>
+    <!-- Футер светлый -->
+    <div style="background:#e8e4de;padding:36px 32px 0;border-top:1px solid #ccc8c2">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px;margin-bottom:32px">
+        <div style="font-family:var(--font-code);font-size:.95rem;font-weight:bold;color:#333"><span class="cli-only">root@</span><span style="color:var(--c-main)">ovc.me</span><span class="cli-only"> ~ #</span></div>
+        <div style="display:flex;gap:48px;flex-wrap:wrap">
+          <div>
+            <div style="font-family:var(--font-code);font-size:.66rem;color:#555;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;font-weight:bold">Разделы</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:var(--c-rag);text-decoration:none"><span class="cli-only">> cd </span>rag</a><div style="font-size:.68rem;color:#555;padding-left:14px;margin-top:2px">ИИ и данные — RAG, чанкинг</div></div>
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:var(--c-toc);text-decoration:none"><span class="cli-only">> cd </span>toc</a><div style="font-size:.68rem;color:#555;padding-left:14px;margin-top:2px">Процессы — ТОС, DBR</div></div>
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:var(--c-bim);text-decoration:none"><span class="cli-only">> cd </span>bim</a><div style="font-size:.68rem;color:#555;padding-left:14px;margin-top:2px">BIM и цифровое строительство</div></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-code);font-size:.66rem;color:#555;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;font-weight:bold">О проекте</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:#333;text-decoration:none"><span class="cli-only">> cd /</span>about</a><div style="font-size:.68rem;color:#555;padding-left:14px;margin-top:2px">Что такое ovc.me</div></div>
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:#333;text-decoration:none"><span class="cli-only">> cd /</span>contacts</a><div style="font-size:.68rem;color:#555;padding-left:14px;margin-top:2px">Написать напрямую</div></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-code);font-size:.66rem;color:#555;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;font-weight:bold">Соцсети</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:var(--c-tg);text-decoration:none"><span class="cli-only">> ./</span>telegram</a><div style="font-size:.68rem;color:#555;padding-left:14px;margin-top:2px">Следить за апдейтами</div></div>
+              <div><a href="#" style="font-family:var(--font-code);font-size:.88rem;color:#333;text-decoration:none"><span class="cli-only">> </span>mail -s</a><div style="font-size:.68rem;color:#555;padding-left:14px;margin-top:2px">Написать на почту</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="border-top:1px dashed #ccc8c2;padding:16px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+        <span style="font-family:var(--font-code);font-size:.76rem;color:#555">[Process completed] All systems operational.</span>
+        <span style="font-family:var(--font-code);font-size:.76rem;color:#555">2026 © OVC.ME</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== S3: КАРТОЧКИ -->
+  <h2 class="section-title" id="s3"><span class="section-num">03</span>Терминальные карточки (Навигация)</h2>
+
+  <div class="sub-title">Root Level — на главную</div>
+  <div class="grid">
+    <a href="#" class="card c-main"><div class="prompt">ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">~/</span><span class="mgmt-only">home</span></div></a>
+    <a href="#" class="card c-rag"><div class="prompt">ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">cd </span>rag</div></a>
+    <a href="#" class="card c-toc"><div class="prompt">ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">cd </span>toc</div></a>
+    <a href="#" class="card c-bim"><div class="prompt">ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">cd </span>bim</div></a>
+    <a href="#" class="card c-ai"><div class="prompt">ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">cd </span>ai</div></a>
+    <a href="#" class="card c-fun"><div class="prompt">ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">cd </span>fun</div></a>
+  </div>
+
+  <div class="sub-title">Subdomain Level — шапка подсайтов</div>
+  <div class="grid inverted">
+    <div class="card c-main"><div class="prompt subdomain">ovc.me<span class="cli-only">>_</span></div></div>
+    <div class="card c-rag"><div class="prompt subdomain">rag.ovc.me<span class="cli-only">>_</span></div></div>
+    <div class="card c-toc"><div class="prompt subdomain">toc.ovc.me<span class="cli-only">>_</span></div></div>
+    <div class="card c-bim"><div class="prompt subdomain">bim.ovc.me<span class="cli-only">>_</span></div></div>
+    <div class="card c-ai"><div class="prompt subdomain">ai.ovc.me<span class="cli-only">>_</span></div></div>
+    <div class="card c-fun"><div class="prompt subdomain">fun.ovc.me<span class="cli-only">>_</span></div></div>
+  </div>
+
+  <div class="sub-title">Internal Level — плитки статей</div>
+  <div class="grid">
+    <div class="nav-block-wrapper">
+      <a href="#" class="card c-rag"><div class="prompt subdomain">rag.ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">cd </span>crag</div></a>
+      <div class="nav-desc">Что такое CRAG?</div>
+    </div>
+    <div class="nav-block-wrapper">
+      <a href="#" class="card c-toc"><div class="prompt subdomain">toc.ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">cd </span>dbr</div></a>
+      <div class="nav-desc">Алгоритм DBR</div>
+    </div>
+    <div class="nav-block-wrapper">
+      <a href="#" class="card c-bim"><div class="prompt subdomain">bim.ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">cd </span>lod</div></a>
+      <div class="nav-desc">Уровни детализации</div>
+    </div>
+    <div class="nav-block-wrapper">
+      <a href="#" class="card c-ai"><div class="prompt subdomain">ai.ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">cd </span>llm</div></a>
+      <div class="nav-desc">Архитектура LLM</div>
+    </div>
+    <div class="nav-block-wrapper">
+      <a href="#" class="card c-fun"><div class="prompt subdomain">fun.ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">cd </span>lab</div></a>
+      <div class="nav-desc">Лаборатория</div>
+    </div>
+  </div>
+
+  <!-- ======================== S3b: ПЛИТКИ СТАТЕЙ -->
+  <h2 class="section-title" id="s3b"><span class="section-num">03b</span>Плитки перехода к статьям</h2>
+  <p class="desc">Карточки-ссылки на статьи внутри подсайта. Терминальный промпт + команда + человекочитаемый заголовок и описание.</p>
+
+  <div class="sub-title">Вариант A — светлые, с цветной полосой сверху (dark & light theme)</div>
+  <div class="article-cards-grid">
+    <a href="#" class="article-card c-rag">
+      <div class="article-card__prompt">rag.ovc.me<span class="cli-only">>_</span></div>
+      <div class="article-card__cmd"><span class="cli-only">cd </span>crag</div>
+      <div class="article-card__title">Что такое CRAG?</div>
+      <div class="article-card__desc">Corrective RAG — как модель сама проверяет качество найденных документов</div>
+    </a>
+    <a href="#" class="article-card c-toc">
+      <div class="article-card__prompt">toc.ovc.me<span class="cli-only">>_</span></div>
+      <div class="article-card__cmd"><span class="cli-only">cd </span>dbr</div>
+      <div class="article-card__title">Алгоритм DBR</div>
+      <div class="article-card__desc">Drum-Buffer-Rope — управление производственным потоком через ограничение</div>
+    </a>
+    <a href="#" class="article-card c-bim">
+      <div class="article-card__prompt">bim.ovc.me<span class="cli-only">>_</span></div>
+      <div class="article-card__cmd"><span class="cli-only">cd </span>lod</div>
+      <div class="article-card__title">Уровни детализации</div>
+      <div class="article-card__desc">LOD 100–500: что это значит и когда какой уровень нужен на проекте</div>
+    </a>
+    <a href="#" class="article-card c-ai">
+      <div class="article-card__prompt">ai.ovc.me<span class="cli-only">>_</span></div>
+      <div class="article-card__cmd"><span class="cli-only">cd </span>llm</div>
+      <div class="article-card__title">Архитектура LLM</div>
+      <div class="article-card__desc">Трансформеры, attention, токены — как это работает без воды</div>
+    </a>
+  </div>
+
+  <div class="sub-title">Вариант B — цветные (colored), как nav-карточки</div>
+  <div class="article-cards-grid">
+    <a href="#" class="article-card colored c-rag">
+      <div class="article-card__prompt">rag.ovc.me<span class="cli-only">>_</span></div>
+      <div class="article-card__cmd"><span class="cli-only">cd </span>crag</div>
+      <div class="article-card__title">Что такое CRAG?</div>
+      <div class="article-card__desc">Corrective RAG — как модель сама проверяет качество найденных документов</div>
+    </a>
+    <a href="#" class="article-card colored c-toc">
+      <div class="article-card__prompt">toc.ovc.me<span class="cli-only">>_</span></div>
+      <div class="article-card__cmd"><span class="cli-only">cd </span>dbr</div>
+      <div class="article-card__title">Алгоритм DBR</div>
+      <div class="article-card__desc">Drum-Buffer-Rope — управление производственным потоком через ограничение</div>
+    </a>
+    <a href="#" class="article-card colored c-bim">
+      <div class="article-card__prompt">bim.ovc.me<span class="cli-only">>_</span></div>
+      <div class="article-card__cmd"><span class="cli-only">cd </span>lod</div>
+      <div class="article-card__title">Уровни детализации</div>
+      <div class="article-card__desc">LOD 100–500: что это значит и когда какой уровень нужен на проекте</div>
+    </a>
+    <a href="#" class="article-card colored c-ai">
+      <div class="article-card__prompt">ai.ovc.me<span class="cli-only">>_</span></div>
+      <div class="article-card__cmd"><span class="cli-only">cd </span>llm</div>
+      <div class="article-card__title">Архитектура LLM</div>
+      <div class="article-card__desc">Трансформеры, attention, токены — как это работает без воды</div>
+    </a>
+  </div>
+
+  <!-- ======================== S4: КНОПКИ -->
+  <h2 class="section-title" id="s4"><span class="section-num">04</span>Кнопки, чипсы и контентные блоки</h2>
+
+  <div class="sub-title">Навигационные и экшн кнопки</div>
+  <div class="btn-group">
+    <a href="#" class="btn btn-nav c-main"><span class="cli-only"><_ cd .. / </span>Назад</a>
+    <a href="#" class="btn btn-nav c-toc"><span class="cli-only">cd next / </span>Дальше <span class="cli-only">>_</span></a>
+    <a href="#" class="btn btn-action c-rag"><span class="cli-only">./execute_</span>read</a>
+    <a href="#" class="btn btn-action c-bim"><span class="cli-only">curl -O </span>Скачать PDF</a>
+  </div>
+
+  <div class="sub-title">Теги / фильтры (Chips)</div>
+  <div class="chips-container c-rag">
+    <a href="#" class="chip active">all_data</a>
+    <a href="#" class="chip">chunking</a>
+    <a href="#" class="chip">embeddings</a>
+    <a href="#" class="chip">vector_db</a>
+  </div>
+
+  <div class="sub-title">Контентные блоки (Callouts)</div>
+  <div class="content-block block-info">
+    <div class="content-block-header"><span class="cli-only">[INFO]</span> Системное уведомление</div>
+    <p>Блок для нейтральной информации, сносок или пояснений к техническому тексту.</p>
+  </div>
+  <div class="content-block block-warn">
+    <div class="content-block-header"><span class="cli-only">[WARN]</span> Обратите внимание</div>
+    <p>Важная деталь алгоритма. В RAG неправильно настроенный размер чанка приведёт к потере семантики.</p>
+  </div>
+  <div class="content-block block-success">
+    <div class="content-block-header"><span class="cli-only">[OK]</span> Успешно выполнено</div>
+    <p>Pipeline завершён без ошибок. 586 векторов проиндексировано.</p>
+  </div>
+  <div class="content-block block-error">
+    <div class="content-block-header"><span class="cli-only">[ERROR]</span> Критическая ошибка</div>
+    <p>Соединение с базой данных прервано. Проверьте конфигурацию <code style="font-family:var(--font-code);background:rgba(0,0,0,.3);padding:1px 5px;border-radius:3px;color:var(--c-ai)">pg_host</code>.</p>
+  </div>
+
+  <!-- ======================== S5: КОНТЕНТ -->
+  <h2 class="section-title" id="s5"><span class="section-num">05</span>Шаблоны контента (Статьи)</h2>
+
+  <article class="article-container theme-article-toc">
+    <header class="article-header">
+      <div class="article-prompt">toc.ovc.me<span class="cli-only">>_</span> <span class="cli-only">cd </span>dbr</div>
+      <h1 class="article-title">Теория Ограничений (TOC)</h1>
+    </header>
+    <div class="article-content">
+      <p>Обертка с классом <code>theme-article-toc</code>. Все <a href="#">ссылки</a> и акценты подхватывают цвет раздела автоматически.</p>
+      <blockquote>"Любой ресурс, потраченный на не-ограничение — это мираж."</blockquote>
+      <div class="btn-group" style="margin-top:24px"><a href="#" class="btn btn-action c-toc"><span class="cli-only">./</span>start_analysis</a></div>
+    </div>
+  </article>
+
+  <article class="article-container theme-article-rag">
+    <header class="article-header">
+      <div class="article-prompt">rag.ovc.me<span class="cli-only">>_</span> <span class="cli-only">cd </span>chunking</div>
+      <h1 class="article-title">Интерактивный Чанкинг</h1>
+    </header>
+    <div class="article-content">
+      <p>Разбивка текста на семантические блоки. Наведите на чанк — увидите эффект.</p>
+      <div class="chunking-demo">
+        <div class="chunking-source"><span class="cli-only">> </span>Исходный текст: "Векторные базы данных понимают семантику."</div>
+        <div class="chunks-wrapper">
+          <div class="chunk-box">[Векторные базы данных]<span class="chunk-vector">dim_1: [0.12, -0.55...]</span></div>
+          <div class="chunk-box">[данных понимают]<span class="chunk-vector">dim_2: [0.44, 0.11...]</span></div>
+          <div class="chunk-box">[понимают семантику]<span class="chunk-vector">dim_3: [0.31, 0.88...]</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ======================== S6: ИКОНКИ -->
+  <h2 class="section-title" id="s6"><span class="section-num">06</span>Favicons (Векторные иконки)</h2>
+  <div class="favicon-demo-row">
+    <div class="favicon-preview">
+      <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg"><rect width="160" height="160" rx="22" fill="#ffffff"/><text x="50%" y="52%" dominant-baseline="central" text-anchor="middle" font-family="monospace" font-size="30" font-weight="700" fill="#2a629a">ovc.me</text></svg>
+      <span>Светлая (Root)</span>
+    </div>
+    <div class="favicon-preview">
+      <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg"><rect width="160" height="160" rx="22" fill="#2a629a"/><text x="50%" y="52%" dominant-baseline="central" text-anchor="middle" font-family="monospace" font-size="30" font-weight="700" fill="#ffffff">ovc.me</text></svg>
+      <span>Инверсия (Root)</span>
+    </div>
+  </div>
+
+  <!-- ======================== S7: МОБИЛКА -->
+  <h2 class="section-title" id="s7"><span class="section-num">07</span>Формат вёрстки под мобильник</h2>
+  <div class="mobile-mockup-wrapper">
+    <div class="mobile-device">
+      <div class="mobile-notch"></div>
+      <div class="mobile-content">
+        <div style="margin-bottom:24px;padding-top:6px">
+          <div style="font-family:var(--font-code);font-size:1rem;font-weight:700;color:var(--text-main);margin-bottom:14px">ovc.me<span class="cli-only">>_</span></div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <a href="#" style="text-decoration:none;display:flex;flex-direction:column"><span style="font-family:var(--font-code);color:var(--c-rag);font-weight:700;font-size:.95rem"><span class="cli-only">cd </span>rag</span><span style="font-size:.64rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em">ИИ & Данные</span></a>
+          </div>
+        </div>
+        <div class="chips-container c-main" style="margin-bottom:18px">
+          <a href="#" class="chip active">mobile_view</a>
+          <a href="#" class="chip">responsive</a>
+        </div>
+        <div class="grid">
+          <a href="#" class="card c-rag"><div class="prompt">ovc.me<span class="cli-only">>_</span></div><div class="command"><span class="cli-only">cd </span>rag</div></a>
+        </div>
+        <a href="#" class="btn btn-action c-main" style="width:100%;margin-top:10px;justify-content:center">[ Выполнить ]</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== S8: ФОРМЫ -->
+  <h2 class="section-title" id="s8"><span class="section-num">08</span>Формы и данные (Inputs & Tables)</h2>
+
+  <div class="sub-title">Inputs — формы ввода</div>
+  <div class="c-main" style="margin-bottom:36px">
+    <div class="input-group">
+      <label class="input-label">Подписаться на обновления</label>
+      <div class="terminal-input-wrapper">
+        <span class="terminal-prompt"><span class="cli-only">user@host:~$</span><span class="mgmt-only">Email</span></span>
+        <input type="email" class="terminal-input" placeholder="enter_email.sh">
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-title">Data Table — таблицы</div>
+  <div class="terminal-table-wrapper c-rag">
+    <table class="terminal-table">
+      <thead>
+        <tr><th>ID</th><th>Model</th><th>Status</th><th>Latency (ms)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span style="color:var(--text-dim)">#001</span></td>
+          <td>embeddings-v3</td>
+          <td><span class="status-badge" style="color:var(--c-toc)">ONLINE</span></td>
+          <td>45</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--text-dim)">#002</span></td>
+          <td>chunk-analyzer</td>
+          <td><span class="status-badge" style="color:var(--c-rag)">IDLE</span></td>
+          <td>120</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--text-dim)">#003</span></td>
+          <td>legacy-search</td>
+          <td><span class="status-badge" style="color:var(--c-ai)">DEPRECATED</span></td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ======================== S9: ОШИБКИ -->
+  <h2 class="section-title" id="s9"><span class="section-num">09</span>Ошибки и загрузки (Errors & Loaders)</h2>
+
+  <div class="sub-title">Empty State — ошибка 404</div>
+  <div class="empty-state-404 c-ai">
+    <div class="error-code">404</div>
+    <div class="error-msg"><span class="cli-only">bash: cd: /page: </span>Страница не найдена</div>
+    <p style="color:var(--text-dim);font-family:var(--font-code);font-size:.82rem;margin:0 0 22px">[ Убедитесь в правильности пути или вернитесь в root ]</p>
+    <a href="#" class="btn btn-action c-main"><span class="cli-only">~/ </span>Вернуться на главную</a>
+  </div>
+
+  <div class="sub-title">Progress bars — состояния загрузки</div>
+  <div style="background:var(--bg-secondary);padding:22px 24px;border-radius:var(--r-md);border:1px solid var(--border);margin-bottom:28px;display:flex;flex-direction:column;gap:14px">
+    <div class="ascii-progress-wrapper c-toc">
+      <div class="ascii-progress-label"><span>Indexing vectors...</span><span>70%</span></div>
+      <div class="ascii-progress-bar"><span>[</span><span class="ascii-progress-fill">███████</span><span class="ascii-progress-track">───</span><span>]</span></div>
+    </div>
+    <div class="ascii-progress-wrapper c-rag">
+      <div class="ascii-progress-label"><span>Loading embeddings...</span><span>40%</span></div>
+      <div class="ascii-progress-bar"><span>[</span><span class="ascii-progress-fill">████</span><span class="ascii-progress-track">──────</span><span>]</span></div>
+    </div>
+    <div class="ascii-progress-wrapper c-main">
+      <div class="ascii-progress-label"><span>Pipeline complete</span><span>100%</span></div>
+      <div class="ascii-progress-bar"><span>[</span><span class="ascii-progress-fill">██████████</span><span>] ✓ done</span></div>
+    </div>
+  </div>
+
+  <!-- ======================== S10: ADVANCED UI -->
+  <h2 class="section-title" id="s10"><span class="section-num">10</span>Продвинутые интерфейсы (Advanced UI)</h2>
+  <p class="desc">Детали, которые делают дизайн-систему зрелой: хлебные крошки, smart code-блоки, кастомные контролы, тултипы, модалки.</p>
+
+  <div class="sub-title">Breadcrumbs — хлебные крошки</div>
+  <div class="breadcrumbs c-rag" style="margin-bottom:36px">
+    <a href="#"><span class="cli-only">~/</span><span class="mgmt-only">Home</span></a><span class="sep">/</span>
+    <a href="#">rag</a><span class="sep">/</span>
+    <a href="#">articles</a><span class="sep">/</span>
+    <span class="current">chunking</span>
+  </div>
+
+  <div class="sub-title">Smart Code Block — блок кода с копированием</div>
+  <div class="code-wrapper">
+    <div class="code-header">
+      <span class="code-lang">bash</span>
+      <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+    </div>
+    <pre><code id="demo-code"><span class="cli-only">ovc.me>_ </span>run pipeline --force
+<span class="cli-only">[INFO]</span> Loading config from ./ovc.config.json
+<span class="cli-only">[INFO]</span> Connecting to vector store...
+<span class="cli-only">[OK]</span>   embeddings-v3 online (45ms)
+<span class="cli-only">[INFO]</span> Processing 1240 documents...
+███████████████████ 100%
+<span class="cli-only">[SUCCESS]</span> Pipeline executed. 586 vectors indexed.</code></pre>
+  </div>
+
+  <div class="sub-title">Checkboxes & Toggles</div>
+  <div class="c-toc" style="background:var(--bg-secondary);padding:22px 24px;border-radius:var(--r-md);border:1px solid var(--border);margin-bottom:36px;display:flex;gap:44px;flex-wrap:wrap">
+    <div>
+      <label class="terminal-checkbox-label"><input type="checkbox" class="terminal-checkbox" checked><span class="checkbox-custom"></span>Согласен с правилами</label>
+      <label class="terminal-checkbox-label"><input type="checkbox" class="terminal-checkbox"><span class="checkbox-custom"></span>Подписаться на рассылку</label>
+    </div>
+    <div>
+      <label class="terminal-checkbox-label"><input type="checkbox" class="terminal-checkbox" checked><span class="toggle-custom"></span>Режим отладки (Debug)</label>
+      <label class="terminal-checkbox-label"><input type="checkbox" class="terminal-checkbox"><span class="toggle-custom"></span>Safe Mode</label>
+    </div>
+  </div>
+
+  <div class="sub-title">Tooltips — всплывающие подсказки</div>
+  <div style="background:var(--bg-secondary);padding:22px 24px;border-radius:var(--r-md);border:1px solid var(--border);margin-bottom:36px;font-size:.97rem;color:var(--text-main);line-height:1.75">
+    Алгоритм использует <div class="tooltip-wrap c-rag">LLM<div class="tooltip-content">Large Language Model — большая языковая модель, обученная на огромных массивах текста.</div></div> для анализа запроса.
+  </div>
+
+  <div class="sub-title">Modal — диалоговое окно</div>
+  <div class="modal-demo-wrapper">
+    <div class="terminal-modal c-main">
+      <div class="modal-header">
+        <span><span class="cli-only">system_prompt</span><span class="mgmt-only">Уведомление</span></span>
+        <span class="modal-close" role="button" tabindex="0">[×]</span>
+      </div>
+      <div class="modal-body">
+        <div style="font-family:var(--font-code);color:var(--c-main);font-size:2rem;margin-bottom:8px"><span class="cli-only">>_</span><span class="mgmt-only">ℹ️</span></div>
+        <h3 style="margin-bottom:8px;color:#fff;font-family:var(--font-code);font-size:1rem">Запрос отправлен</h3>
+        <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:22px">Мы получили ваше сообщение и скоро вернёмся с ответом.</p>
+        <a href="#" class="btn btn-action c-main" style="width:100%;justify-content:center">[ OK ]</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== S11: OVC TRIGGER -->
+  <h2 class="section-title" id="s11"><span class="section-num">11</span>OVC Trigger — скрипт расшифровок</h2>
+  <p class="desc">Интерактивный компонент в шапке. Никакой "настоящей" расшифровки нет — все варианты равнозначны. Это и есть пасхалка.</p>
+
+  <div class="sub-title">Демо — кликни на ovc.me</div>
+  <div class="branding-header" style="margin-bottom:24px">
+    <div class="terminal-dots"><span></span><span></span><span></span></div>
+    <span id="ovc-trigger-demo" class="ovc-trigger" tabindex="0" role="button" title="Кликни — появится новая расшифровка">ovc.me</span>:
+    <span id="ovc-expansion-demo" class="ovc-expansion">Оптимизация Векторных Цепочек : Машинная Экспертиза</span>
+  </div>
+  <p class="desc" style="font-size:.85rem;margin-bottom:32px">
+    Серьёзные расшифровки появляются в ~85% случаев. Пасхалки — в ~15%. Мета-пасхалка — на 10-м клике подряд.
+  </p>
+
+  <div class="sub-title">Формула расшифровки</div>
+  <div class="content-block block-info" style="margin-bottom:12px">
+    <div class="content-block-header">[СТРУКТУРА] [O][V][C] : [M][E]</div>
+    <p>Каждая буква домена = слово. Двоеточие делит на префикс (ovc) и суффикс (.me). Русский вариант: О-В-Ц : М-Э/Е.</p>
+  </div>
+  <div class="content-block block-success" style="margin-bottom:12px">
+    <div class="content-block-header">[RAG] Open Vector Context : Model Environment</div>
+    <p>Фокус на векторах, контексте, валидации, машинном обучении.</p>
+  </div>
+  <div class="content-block block-warn" style="margin-bottom:12px">
+    <div class="content-block-header">[TOC] Optimized Value Chain : Management Execution</div>
+    <p>Фокус на цепочках ценности, узких местах, метриках, ограничениях.</p>
+  </div>
+  <div class="content-block block-info" style="margin-bottom:24px">
+    <div class="content-block-header">[BIM] Operational Virtual Construction : Master Engineering</div>
+    <p>Фокус на виртуальном строительстве, объектах, визуализации, инжиниринге.</p>
+  </div>
+
+  <div class="sub-title">Полный массив — все расшифровки</div>
+  <div class="code-wrapper" style="margin-bottom:40px">
+    <div class="code-header">
+      <span class="code-lang">javascript</span>
+      <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+    </div>
+    <pre><code>const expansions = [
+  // — RAG & AI —
+  "Open Vector Context : Model Environment",
+  "Output Validation Core : Machine Expertise",
+  "Оптимизация Векторных Цепочек : Машинная Экспертиза",
+  "Оценка Вычислительных Центров : Моделирование и Эффективность",
+
+  // — TOC —
+  "Optimized Value Chain : Management Execution",
+  "Overcoming Vicious Constraints : Metrics & Efficiency",
+  "Order Vs Chaos : Management Engine",
+  "Обход Вредных Циклов : Менеджмент и Эффективность",
+  "Оптимизация Внутренних Цепей : Методы Экспертизы",
+
+  // — BIM —
+  "Operational Virtual Construction : Master Engineering",
+  "Object Validity Control : Modeling Engine",
+  "Объектно-Виртуальный Центр : Масштабируемая Емкость",
+
+  // — Пасхалки: технотреп, серьёзно по форме —
+  "Orphaned Vectors Contextualized : Memory Exhausted",
+  "Остаточный Векторный Контекст : Минимальная Энтропия",
+  "Obvious Violation Concealed : Metrics Excellent",
+  "Оптимизировано Вчера Совещанием : Метрика Ещё Считается",
+  "Object Vanished Completely : Model Exists",
+  "Объект Висит Честно : Модель Едет",
+
+  // — Мета-пасхалка: только на 10-м клике подряд —
+  "Означает Всё Что Захочешь : Можешь Ещё Раз",
+  "Obviously Very Creative : Meaning Escapes",
+];</code></pre>
+  </div>
+
+<div class="sub-title">Код для установки на сайт</div>
+  <div class="code-wrapper" style="margin-bottom:16px">
+    <div class="code-header">
+      <span class="code-lang">html</span>
+      <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+    </div>
+    <pre><code>&lt;!-- Вставить в нужное место страницы --&gt;
+&lt;span id="ovc-trigger" style="cursor:pointer;font-weight:bold;
+  color:var(--c-main);border-bottom:1px dashed rgba(42,98,154,.5);"
+  tabindex="0" title="Кликни для смены"&gt;ovc.me&lt;/span&gt;:
+&lt;span id="ovc-expansion"&gt;&lt;/span&gt;
+
+&lt;!-- Вставить перед &lt;/body&gt; --&gt;
+&lt;script&gt;
+const expansions = [ /* массив выше */ ];
+let clickCount = 0;
+
+function updateExpansion() {
+  const el = document.getElementById('ovc-expansion');
+  if (!el) return;
+  clickCount++;
+  if (clickCount === 10) {
+    el.textContent = "Означает Всё Что Захочешь : Можешь Ещё Раз";
+    clickCount = 0; return;
+  }
+  const showEaster = Math.random() &lt; 0.15;
+  const pool = showEaster ? expansions.slice(12, 19) : expansions.slice(0, 12);
+  el.textContent = pool[Math.floor(Math.random() * pool.length)];
+}
+
+document.addEventListener('DOMContentLoaded', () =&gt; {
+  updateExpansion();
+  document.getElementById('ovc-trigger')
+    .addEventListener('click', updateExpansion);
+});
+&lt;/script&gt;</code></pre>
+  </div>
+  <p class="desc" style="font-size:.82rem">Работает без зависимостей. Подходит для Tilda, WordPress, Webflow — вставить как HTML-блок.</p>
+
+<!-- ======================== S12: ДАШБОРДЫ И МЕТРИКИ ======================== -->
+<section class="dashboard-section" id="s12">
+  <h2 class="section-title"><span class="section-num">12</span>Дашборды и Метрики</h2>
+  <p class="desc">Метрики системы и графики нагрузки. В режиме менеджера карточки становятся мягче, а технические логи исчезают.</p>
+
+  <div class="sub-title">KPI Карточки</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-header"><span class="cli-only">[+]</span> Всего запросов</div>
+      <div class="kpi-value">1,284</div>
+      <div class="kpi-label">за сегодня</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header"><span class="cli-only">[+]</span> Средний ответ (ms)</div>
+      <div class="kpi-value">142</div>
+      <div class="kpi-label">latency</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header"><span class="cli-only">[-]</span> Ошибки</div>
+      <div class="kpi-value">12</div>
+      <div class="kpi-label">0.9% error rate</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header"><span class="cli-only">[+]</span> Uptime</div>
+      <div class="kpi-value">99.8%</div>
+      <div class="kpi-label">last 30 days</div>
+    </div>
+  </div>
+
+  <div class="sub-title">Bar Chart — Скорость ответа по разделам</div>
+  <div class="bar-chart">
+    <div class="bar-wrapper" style="--val:85%">
+      <div class="bar-label">RAG</div>
+      <div class="bar-track"><div class="bar-fill" style="--val:85%"></div></div>
+      <div class="bar-value">85%</div>
+    </div>
+    <div class="bar-wrapper" style="--val:62%">
+      <div class="bar-label">TOC</div>
+      <div class="bar-track"><div class="bar-fill" style="--val:62%"></div></div>
+      <div class="bar-value">62%</div>
+    </div>
+    <div class="bar-wrapper" style="--val:78%">
+      <div class="bar-label">BIM</div>
+      <div class="bar-track"><div class="bar-fill" style="--val:78%"></div></div>
+      <div class="bar-value">78%</div>
+    </div>
+    <div class="bar-wrapper" style="--val:45%">
+      <div class="bar-label">AI</div>
+      <div class="bar-track"><div class="bar-fill" style="--val:45%"></div></div>
+      <div class="bar-value">45%</div>
+    </div>
+  </div>
+
+  <div class="sub-title">System Logs</div>
+  <div class="system-logs">
+    <div class="log-entry"><span style="color:var(--c-main)">[INFO]</span> Pipeline started at 12:00:00</div>
+    <div class="log-entry"><span style="color:var(--c-rag)">[WARN]</span> Chunk size too small for section 3</div>
+    <div class="log-entry"><span style="color:var(--c-ai)">[ERROR]</span> Connection timeout to vector store</div>
+    <div class="log-entry"><span style="color:var(--c-main)">[INFO]</span> Retrying connection...</div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     SITE FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <div class="site-footer__logo"><span class="cli-only">root@</span><span>ovc.me</span><span class="cli-only"> ~ #</span></div>
+      <div class="site-footer__cols">
+        <div class="site-footer__col">
+          <div class="site-footer__col-title">Разделы</div>
+          <ul>
+            <li>
+              <a href="#" style="color:var(--c-rag)"><span class="cli-only">cd </span>rag</a>
+              <span class="link-sub">ИИ и данные — RAG, чанкинг, эмбеддинги</span>
+            </li>
+            <li>
+              <a href="#" style="color:var(--c-toc)"><span class="cli-only">cd </span>toc</a>
+              <span class="link-sub">Процессы — ТОС, DBR, управление потоком</span>
+            </li>
+            <li>
+              <a href="#" style="color:var(--c-bim)"><span class="cli-only">cd </span>bim</a>
+              <span class="link-sub">BIM и цифровое строительство</span>
+            </li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <div class="site-footer__col-title">О проекте</div>
+          <ul>
+            <li>
+              <a href="#"><span class="cli-only">cd /</span>about</a>
+              <span class="link-sub">Что такое ovc.me и зачем</span>
+            </li>
+            <li>
+              <a href="#"><span class="cli-only">cd /</span>contacts</a>
+              <span class="link-sub">Написать напрямую</span>
+            </li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <div class="site-footer__col-title">Соцсети</div>
+          <ul>
+            <li>
+              <a href="#" style="color:var(--c-tg)"><span class="cli-only">ping @</span>telegram</a>
+              <span class="link-sub">Канал и чат в Telegram</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <div class="site-footer__copy">2026 © OVC.ME — All rights reserved.</div>
+      <div class="site-footer__status">[Process completed] All systems operational.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/04_components.js"></script>
+<script src="js/05_interactions.js"></script>
+
+</body>
+</html>

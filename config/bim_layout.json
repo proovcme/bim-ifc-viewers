@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "title": "BIM & ТИМ — bim.ovc.me",
+    "description": "IFC-просмотрщики: теория и практика. IFC.js, Speckle, OBC, Xeokit.",
+    "canonical": "https://bim.ovc.me/"
+  },
+  "hero": {
+    "title_line1": "BIM & ТИМ:",
+    "title_line2": "автоматизация без магии",
+    "subtitle": "Практика для проектировщиков",
+    "description": "IFC-просмотрщики: от теории до работающих демо. Без маркетинга, только код."
+  },
+  "sections": [
+    {
+      "id": "ifc-theory",
+      "type": "dev_grid",
+      "title": "Просмотр IFC: Теория",
+      "visible": true,
+      "cards": [
+        { "tag": "JS", "title": "IFC.js", "desc": "Официальная библиотека для парсинга и рендера IFC в браузере", "url": "/ifcjs.php", "target": "_self", "color_class": "c-bim", "is_demo": false },
+        { "tag": "API", "title": "Speckle", "desc": "Открытая платформа для обмена данными между BIM-инструментами", "url": "/speckle.php", "target": "_self", "color_class": "c-bim", "is_demo": false },
+        { "tag": "Components", "title": "OBC", "desc": "OpenBIM Components — модульная архитектура для веб-приложений", "url": "/obc.php", "target": "_self", "color_class": "c-bim", "is_demo": false },
+        { "tag": "Engine", "title": "Xeokit", "desc": "Высокопроизводительный движок для визуализации больших моделей", "url": "/xeokit.php", "target": "_self", "color_class": "c-bim", "is_demo": false }
+      ]
+    },
+   {
+  "id": "ifc-practice",
+  "type": "dev_grid",
+  "title": "Просмотр IFC: Практика",
+  "visible": true,
+  "cards": [
+    { "tag": "🔴 LIVE", "title": "IFC.js Viewer", "desc": "Рабочий просмотрщик: загрузка .ifc, свойства, сечения, рулетка", "url": "/webjs/", "target": "_self", "color_class": "c-bim", "is_demo": true },
+    { "tag": "🔴 LIVE", "title": "Xeokit App", "desc": "Высокопроизводительный вьювер: большие модели, дерево, 2D/3D переключение", "url": "/app/", "target": "_self", "color_class": "c-bim", "is_demo": true },
+    { "tag": "🔴 LIVE", "title": "Speckle Viewer", "desc": "Облачный вьювер: совместный просмотр, версии, комментарии, экспорт", "url": "/speckle-viewer.php", "target": "_self", "color_class": "c-bim", "is_demo": true }
+  ]
+}
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "id": "ovc",
+  "name": "OVC Campus",
+  "models": [
+    {
+      "id": "Building-Architecture",
+      "name": "Здание: Архитектура"
+    },
+    {
+      "id": "Building-Hvac",
+      "name": "Здание: ОВиК"
+    },
+    {
+      "id": "Building-Landscaping",
+      "name": "Здание: Благоустройство"
+    },
+    {
+      "id": "Building-Structural",
+      "name": "Здание: Конструктив"
+    },
+    {
+      "id": "Infra-Bridge",
+      "name": "Инфраструктура: Мост"
+    },
+    {
+      "id": "Infra-Landscaping",
+      "name": "Инфраструктура: Ландшафт"
+    },
+    {
+      "id": "Infra-Plumbing",
+      "name": "Инфраструктура: Водоснабжение"
+    },
+    {
+      "id": "Infra-Rail",
+      "name": "Инфраструктура: Ж/Д"
+    },
+    {
+      "id": "Infra-Road",
+      "name": "Инфраструктура: Дороги"
+    }
+  ],
+  "viewerContent": {
+    "modelsLoaded": [
+      "Building-Architecture",
+      "Building-Hvac",
+      "Building-Landscaping",
+      "Building-Structural",
+      "Infra-Bridge",
+      "Infra-Landscaping",
+      "Infra-Plumbing",
+      "Infra-Rail",
+      "Infra-Road"
+    ]
+  },
+  "viewerUI": {
+    "openExplorer": true
+  }
+}

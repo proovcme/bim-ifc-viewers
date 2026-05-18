@@ -1,0 +1,9 @@
+# app/.htaccess
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /app/
+
+    # /app/ и /app/index.html без projectId → добавляем параметр
+    RewriteCond %{QUERY_STRING} !projectId=
+    RewriteRule ^(index\.html)?$ index.html?projectId=ovc [R=302,L]
+</IfModule>

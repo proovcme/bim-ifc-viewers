@@ -1,0 +1,22 @@
+# Отключаем расширения .php для красоты
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Если файла не существует (например, зашли на /risk)
+    # и существует такой же файл с .php (/risk.php) — открываем его
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^([^/]+)$ $1.php [L]
+</IfModule>
+
+# Обработка ошибок
+ErrorDocument 404 /404.php
+
+RewriteEngine On
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+
+RewriteEngine On
+RewriteCond %{QUERY_STRING} !projectId=
+RewriteRule ^index\.html$ index.html?projectId=ovc [R=302,L]

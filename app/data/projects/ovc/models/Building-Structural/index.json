@@ -1,0 +1,8 @@
+{
+  "id": "Building-Structural",
+  "name": "Building-Structural",
+  "saoEnabled": true,
+  "dtxEnabled": true,
+  "src": "./geometry.xkt",
+  "edges": true
+}
