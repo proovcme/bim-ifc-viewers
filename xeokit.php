@@ -36,7 +36,7 @@ include __DIR__ . '/../../public_html/header.php';
 <article class="content-block">
     <h2>🚀 Ключевые особенности</h2>
     <ul>
-        <li><strong>Без серверной логики</strong> — работает на любом статическом хостинге (Shared, GitHub Pages, VPS).</li>
+        <li><strong>Без серверной логики</strong> — работает на обычном статическом хостинге, shared hosting или VPS.</li>
         <li><strong>Не требует COOP/COEP</strong> — в отличие от аналогов, xeokit не использует WASM с <code>SharedArrayBuffer</code>, поэтому работает «из коробки» без сложной настройки заголовков.</li>
         <li><strong>Высокая производительность</strong> — собственный WebGL-движок (без Three.js) обеспечивает быструю загрузку и рендеринг больших моделей.</li>
         <li><strong>Готовый интерфейс</strong> — дерево объектов, сечения, замеры, X-ray режим, переключение 2D/3D.</li>
