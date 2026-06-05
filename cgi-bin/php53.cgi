@@ -1,1 +1,0 @@
-/usr/lib64/php5.3/bin/php-cgi
