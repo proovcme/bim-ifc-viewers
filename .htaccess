@@ -16,6 +16,13 @@ ErrorDocument 404 /404.php
 RewriteEngine On
 RewriteRule ^sitemap\.xml$ sitemap.php [L]
 
+# Static BIM viewer assets
+AddType application/wasm .wasm
+AddType text/javascript .mjs
+AddType application/javascript .js
+AddType application/json .json
+AddType application/octet-stream .ifc .ifczip
+
 
 RewriteEngine On
 RewriteCond %{QUERY_STRING} !projectId=

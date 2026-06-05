@@ -29,6 +29,7 @@
   "title": "Просмотр IFC: Практика",
   "visible": true,
   "cards": [
+    { "tag": "🔴 LIVE", "title": "LES VIZOR", "desc": "Standalone WebGL viewer: IFC, CAD/BIM JSON, layers, structure, clipping, measurements", "url": "/vizor/", "target": "_self", "color_class": "c-bim", "is_demo": true },
     { "tag": "🔴 LIVE", "title": "IFC.js Viewer", "desc": "Рабочий просмотрщик: загрузка .ifc, свойства, сечения, рулетка", "url": "/webjs/", "target": "_self", "color_class": "c-bim", "is_demo": true },
     { "tag": "🔴 LIVE", "title": "Xeokit App", "desc": "Высокопроизводительный вьювер: большие модели, дерево, 2D/3D переключение", "url": "/app/", "target": "_self", "color_class": "c-bim", "is_demo": true },
     { "tag": "🔴 LIVE", "title": "Speckle Viewer", "desc": "Облачный вьювер: совместный просмотр, версии, комментарии, экспорт", "url": "/speckle-viewer.php", "target": "_self", "color_class": "c-bim", "is_demo": true }
