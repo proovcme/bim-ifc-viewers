@@ -1,41 +1,40 @@
 # BIM IFC Viewers
 
-Standalone browser viewers for IFC, CAD/BIM JSON and openBIM experiments.
+Коллекция веб-просмотрщиков IFC/BIM-моделей для сравнения подходов: **LES VIZOR**, IFC.js, Xeokit, Speckle Viewer и теоретические страницы по библиотекам. Репозиторий рассчитан на простой деплой на shared hosting, GitHub Pages или любой статический сервер.
 
-The main artifact in this repository is **LES VIZOR Standalone**: a ready-to-host
-WebGL viewer that opens IFC files and lightweight `cad_bim_graph.json` payloads
-without a backend, npm install, login, or cloud service.
+**Демо-сайт:** https://bim.ovc.me
 
-[![Open VIZOR](https://img.shields.io/badge/Open-VIZOR-facc15?style=for-the-badge)](./vizor/)
-[![Runtime](https://img.shields.io/badge/runtime-static%20webgl-38bdf8?style=for-the-badge)](./vizor/)
-[![IFC](https://img.shields.io/badge/IFC-web--ifc-22c55e?style=for-the-badge)](./vizor/ifc-sample/)
+**GitHub Pages для VIZOR:** https://proovcme.github.io/bim-ifc-viewers/vizor/
 
-![VIZOR standalone demo](docs/assets/vizor-demo.png)
+![LES VIZOR standalone demo](docs/assets/vizor-demo.png)
 
-## What Is Inside
+## Что Здесь Есть
 
-| Path | Purpose |
-|---|---|
-| `vizor/` | LES VIZOR standalone viewer, ready for static hosting |
-| `vizor/models/demo.cad_bim_graph.json` | Tiny CAD/BIM JSON demo scene |
-| `vizor/ifc-sample/` | Public IFC sample models used by the demo buttons |
-| `vizor/JSON/` | Small JSON projections for the BuildingSmart demo set |
-| `webjs/` | Legacy IFC.js viewer experiment |
-| `app/` | Legacy Xeokit viewer experiment |
-| `*.php`, `config/` | Legacy shared-hosting pages for `bim.ovc.me` |
+| Вьюер | Путь | Технологии | Локальный IFC | JSON CAD/BIM | Сервер | Статус |
+|---|---|---|---|---|---|---|
+| **LES VIZOR** | `vizor/` | That Open Components, Three.js, web-ifc | Да | Да | Не нужен | Основной автономный вьюер |
+| **IFC.js Viewer** | `webjs/` | Three.js, web-ifc-three | Да | Нет | Не нужен | Рабочее старое демо |
+| **Xeokit App** | `app/` | Xeokit BIM Viewer, XKT | Через подготовленные XKT | Нет | Не нужен | Быстрый вьюер для подготовленных моделей |
+| **Speckle Viewer** | `speckle-viewer.php` | Speckle Viewer | Нет | Нет | Нужен источник Speckle | Демо Speckle-подхода |
+| **Теория IFC.js** | `ifcjs.php` | Статья/обзор | - | - | - | Навигационная страница |
+| **Теория OBC** | `obc.php` | Статья/обзор | - | - | - | Навигационная страница |
+| **Теория Xeokit** | `xeokit.php` | Статья/обзор | - | - | - | Навигационная страница |
+| **Теория Speckle** | `speckle.php` | Статья/обзор | - | - | - | Навигационная страница |
 
-## VIZOR Standalone
+## LES VIZOR
 
-VIZOR is a static WebGL viewer for quick BIM inspection:
+VIZOR добавлен как новый автономный вьюер для быстрого BIM/CAD просмотра без сервера и без установки npm-зависимостей на рабочем месте.
 
-- opens IFC from local files or hosted sample paths;
-- opens canonical CAD/BIM JSON graphs;
-- renders lightweight mesh, bbox, line, polyline, arc and text geometry;
-- shows models, layers, structure, object properties and scene statistics;
-- supports fit, isolate, hide/show, clipping planes and simple measurements;
-- runs from ordinary static hosting: GitHub Pages, Caddy, nginx, Apache, shared hosting.
+Что умеет:
 
-It ships the runtime files it needs:
+- открывать `.ifc`, `.ifczip` и canonical `cad_bim_graph.json`;
+- показывать несколько моделей в одной сцене;
+- отображать слои, структуру, свойства выбранного объекта и статистику сцены;
+- рендерить mesh, bbox, line, polyline, arc и text geometry;
+- делать fit/isolate/hide/show, сечения и простые замеры;
+- работать с обычного статического хостинга.
+
+Состав:
 
 ```text
 vizor/
@@ -50,51 +49,91 @@ vizor/
 └── JSON/*.cad_bim_graph.json
 ```
 
-## Quick Start
+VIZOR здесь публичный и автономный. LES/RAG-интеграция из private-контура в этом standalone-пакете отключена.
 
-From the repository root:
+## Быстрый Запуск
+
+Из корня репозитория:
 
 ```bash
 python3 -m http.server 8095
 ```
 
-Open:
+Открыть VIZOR:
+
+```text
+http://127.0.0.1:8095/vizor/
+```
+
+Открыть минимальный JSON demo:
 
 ```text
 http://127.0.0.1:8095/vizor/?source=models/demo.cad_bim_graph.json
 ```
 
-For IFC demo models, open `http://127.0.0.1:8095/vizor/` and press `Демо`, or
-enter a direct model path such as:
+Открыть IFC sample через верхнее поле:
 
 ```text
 ifc-sample/Building-Hvac.ifc
 ```
 
-## Hosting Notes
+## Структура Репозитория
 
-- Serve `.wasm` as `application/wasm` when your web server allows MIME mapping.
-- Keep `assets/worker-*.mjs`, `fragments/worker.mjs` and `web-ifc/*.wasm` next to the bundle.
-- Do not open `vizor/index.html` by double-clicking it. Browser security can block local workers and WASM.
-- The viewer is intentionally backend-free. LES/RAG integration is disabled in this public standalone package.
+```text
+bim-ifc-viewers/
+├── vizor/                 # LES VIZOR, автономный вьюер
+├── webjs/                 # IFC.js / web-ifc-three demo
+├── app/                   # Xeokit viewer build and XKT data
+├── config/bim_layout.json # Карточки сайта bim.ovc.me
+├── *.php                  # Shared-hosting страницы и навигация
+├── docs/assets/           # Скриншоты для GitHub README
+└── frontend/ui-kit/       # Legacy UI-kit для сайта
+```
 
-## Technology
+## Деплой
+
+### GitHub Pages
+
+GitHub Pages включен из ветки `main`, путь `/`.
+
+VIZOR доступен по адресу:
+
+```text
+https://proovcme.github.io/bim-ifc-viewers/vizor/
+```
+
+### Shared Hosting / Apache
+
+Загрузить содержимое репозитория в корень сайта. В `.htaccess` уже добавлены MIME-типы для BIM runtime:
+
+```apache
+AddType application/wasm .wasm
+AddType text/javascript .mjs
+AddType application/javascript .js
+AddType application/json .json
+AddType application/octet-stream .ifc .ifczip
+```
+
+Важно не открывать `vizor/index.html` двойным кликом из файловой системы: браузер может заблокировать WASM и workers. Нужен любой локальный или удалённый HTTP server.
+
+## Сравнение Подходов
+
+| Подход | Сильная сторона | Ограничение |
+|---|---|---|
+| VIZOR / OBC | Готовый standalone runtime, IFC + CAD/BIM JSON, удобная сцена | Бандл крупный, нужен WebGL |
+| IFC.js | Простая классика для экспериментов с IFC в браузере | Меньше готовой UI-обвязки |
+| Xeokit | Быстрый просмотр подготовленных XKT | Требуется конвертация IFC/XKT pipeline |
+| Speckle | Совместная работа и облачный обмен BIM-данными | Не является полностью offline/local viewer |
+
+## Технологии
 
 - That Open Components `3.4.x`
 - Three.js `0.184.0`
 - web-ifc `0.0.77`
-- Static Vite bundle
+- IFC.js / web-ifc-three, старое рабочее демо
+- Xeokit BIM Viewer, старое рабочее демо
+- PHP/shared-hosting навигация сайта
 
-## Related Viewers
-
-This repository also keeps older IFC viewer experiments for comparison:
-
-- IFC.js / web-ifc-three prototype in `webjs/`;
-- Xeokit BIM Viewer build in `app/`;
-- shared-hosting PHP pages for theory and demo navigation.
-
-They are useful as historical comparison material. New standalone work should start from `vizor/`.
-
-## License
+## Лицензия
 
 MIT.
