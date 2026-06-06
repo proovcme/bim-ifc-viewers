@@ -2,7 +2,7 @@
 declare(strict_types=1);
 $siteId          = 'bim';
 $pageTitle       = 'BIM & ТИМ — bim.ovc.me';
-$pageDescription = 'IFC-просмотрщики: теория и практика. IFC.js, Speckle, OBC, Xeokit.';
+$pageDescription = 'IFC-просмотрщики: теория и практика. LES АТЛАС, IFC.js, Speckle, OBC, Xeokit.';
 include __DIR__ . '/../../public_html/header.php';
 require_once __DIR__ . '/../../public_html/lib/frontmatter.php';
 require_once __DIR__ . '/../../public_html/lib/views.php';
