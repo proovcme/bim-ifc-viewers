@@ -1,23 +1,23 @@
 # BIM IFC Viewers
 
-Русская коллекция BIM/IFC веб-вьюеров: **LES VIZOR**, **IFC.js Viewer**, **Xeokit App**, **Speckle Viewer** и обзорные страницы по openBIM-инструментам. Репозиторий нужен как исходник для сайта и как честная витрина разных подходов к просмотру IFC/BIM в браузере.
+Русская коллекция BIM/IFC веб-вьюеров: **LES АТЛАС**, **IFC.js Viewer**, **Xeokit App**, **Speckle Viewer** и обзорные страницы по openBIM-инструментам. Репозиторий нужен как исходник для сайта и как честная витрина разных подходов к просмотру IFC/BIM в браузере.
 
 **Демо-сайт:** https://bim.ovc.me
 
-![LES VIZOR standalone demo](docs/assets/vizor-demo.png)
+![LES АТЛАС standalone demo](docs/assets/vizor-demo.png)
 
 ## Вьюеры
 
 | Вьюер | Демо | Путь в репозитории | Основная роль |
 |---|---|---|---|
-| **LES VIZOR** | https://bim.ovc.me/vizor/ | `vizor/` | Автономный WebGL-вьюер для IFC и CAD/BIM JSON |
+| **LES АТЛАС** | https://bim.ovc.me/vizor/ | `vizor/` | Автономный WebGL-вьюер для IFC и CAD/BIM JSON |
 | **IFC.js Viewer** | https://bim.ovc.me/webjs/ | `webjs/` | Классический браузерный IFC viewer на IFC.js/web-ifc-three |
 | **Xeokit App** | https://bim.ovc.me/app/ | `app/` | Быстрый просмотр подготовленных BIM-моделей через Xeokit |
 | **Speckle Viewer** | https://bim.ovc.me/speckle-viewer.php | `speckle-viewer.php` | Демо подхода Speckle: web viewer и облачный обмен BIM-данными |
 
-## LES VIZOR
+## LES АТЛАС
 
-**LES VIZOR** - основной standalone-вьюер в этом репозитории. Он собран так, чтобы запускаться с обычного HTTP-хостинга без npm, backend-сервиса и приватного LES-контура.
+**LES АТЛАС** - основной standalone-вьюер в этом репозитории. Он собран так, чтобы запускаться с обычного HTTP-хостинга без npm, backend-сервиса и приватного LES-контура.
 
 Что умеет:
 
@@ -69,13 +69,13 @@ vizor/
 Когда полезен:
 
 - нужно быстро понять механику IFC.js без тяжелой UI-обвязки;
-- нужен простой пример для сравнения с VIZOR/OBC;
+- нужен простой пример для сравнения с АТЛАС/OBC;
 - важна читаемость демо, а не максимальная производительность.
 
 Ограничения:
 
 - UI и код legacy-уровня;
-- меньше готовых BIM-инструментов, чем в VIZOR/OBC;
+- меньше готовых BIM-инструментов, чем в АТЛАС/OBC;
 - для больших моделей может уступать специализированным пайплайнам.
 
 ## Xeokit App
@@ -143,7 +143,7 @@ vizor/
 python3 -m http.server 8095
 ```
 
-Открыть VIZOR:
+Открыть АТЛАС:
 
 ```text
 http://127.0.0.1:8095/vizor/
@@ -155,7 +155,7 @@ http://127.0.0.1:8095/vizor/
 http://127.0.0.1:8095/vizor/?source=models/demo.cad_bim_graph.json
 ```
 
-Открыть IFC sample через верхнее поле VIZOR:
+Открыть IFC sample через верхнее поле АТЛАС:
 
 ```text
 ifc-sample/Building-Hvac.ifc
@@ -177,13 +177,13 @@ AddType application/json .json
 AddType application/octet-stream .ifc .ifczip
 ```
 
-Карточки главной страницы сайта лежат в `config/bim_layout.json`. Сейчас там отдельно указаны теория и практика: VIZOR, IFC.js Viewer, Xeokit App и Speckle Viewer.
+Карточки главной страницы сайта лежат в `config/bim_layout.json`. Сейчас там отдельно указаны теория и практика: АТЛАС, IFC.js Viewer, Xeokit App и Speckle Viewer.
 
 ## Структура Репозитория
 
 ```text
 bim-ifc-viewers/
-├── vizor/                 # LES VIZOR, автономный вьюер
+├── vizor/                 # LES АТЛАС, автономный вьюер
 ├── webjs/                 # IFC.js / web-ifc-three demo
 ├── app/                   # Xeokit viewer build and data
 ├── config/bim_layout.json # Карточки сайта bim.ovc.me
@@ -196,7 +196,7 @@ bim-ifc-viewers/
 
 | Подход | Сильная сторона | Ограничение |
 |---|---|---|
-| VIZOR / OBC | Standalone runtime, IFC + CAD/BIM JSON, удобная сцена | Бандл крупный, нужен WebGL |
+| АТЛАС / OBC | Standalone runtime, IFC + CAD/BIM JSON, удобная сцена | Бандл крупный, нужен WebGL |
 | IFC.js | Простая классика для экспериментов с IFC в браузере | Меньше готовой UI-обвязки |
 | Xeokit | Быстрый просмотр подготовленных BIM-моделей | Обычно нужна конвертация в web-friendly формат |
 | Speckle | Совместная работа и облачный обмен BIM-данными | Не полностью offline/local viewer |

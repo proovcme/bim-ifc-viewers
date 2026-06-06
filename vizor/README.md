@@ -1,4 +1,4 @@
-# LES VIZOR Standalone
+# LES АТЛАС Standalone
 
 Static WebGL CAD/BIM viewer. Runs without LES backend, npm install, login, or internet access after the files are on the host.
 
